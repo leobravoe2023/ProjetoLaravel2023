@@ -14,7 +14,8 @@ class UserInfoController extends Controller
      */
     public function index()
     {
-        //
+        // Como não possui index, mando carregar a view create
+        return $this->create();
     }
 
     /**
@@ -93,7 +94,18 @@ class UserInfoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // procuro e vejo se existe a informção do usuário logado
+        $userInfo = UserInfo::find(1);
+        if(isset($userInfo)){
+            $userInfo->profileImg = $request->profileImg;
+            $userInfo->genero = $request->genero;
+            $userInfo->dataNasc = $request->dataNasc;
+            $userInfo->update();
+            return view("UserInfo/show")->with("userInfo", $userInfo);
+        }
+        // Caso não exista a informação
+        // Mando carregar a tela para criar essa informação
+        return view("UserInfo/create");
     }
 
     /**
@@ -104,6 +116,11 @@ class UserInfoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // procuro e vejo se existe a informção do usuário logado
+        $userInfo = UserInfo::find(1);
+        if(isset($userInfo)){
+            $userInfo->delete();
+        }
+        return view("UserInfo/create");
     }
 }
