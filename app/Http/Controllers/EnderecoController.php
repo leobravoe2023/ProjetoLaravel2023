@@ -5,9 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Models\Endereco;
+use Auth;
 
 class EnderecoController extends Controller
 {
+    /**
+     * Método que roda ao criar a instancia do controlador que é utilizado pelo Laravel.
+     * Em outras palavras, esse método pode ser utilizado para configurar o controlador
+     * de forma inicial.
+     */
+    public function __construct(){
+        $this->middleware('auth:web');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +26,8 @@ class EnderecoController extends Controller
     public function index()
     {
         try {
-            $enderecos = DB::select("SELECT * from Enderecos WHERE Users_id = 1");
+            $logged = Auth::user();
+            $enderecos = DB::select("SELECT * from Enderecos WHERE Users_id = ?", [$logged->id]);
             return view("Endereco/index")->with("enderecos", $enderecos);
         } catch (\Throwable $th) {
             return view("Endereco/index")->with("enderecos", [])->with("message", [$th->getMessage(), "danger"]);
@@ -26,7 +37,8 @@ class EnderecoController extends Controller
     public function indexMessage($message)
     {
         try {
-            $enderecos = DB::select("SELECT * from Enderecos WHERE Users_id = 1");
+            $logged = Auth::user();
+            $enderecos = DB::select("SELECT * from Enderecos WHERE Users_id = ?", [$logged->id]);
             return view("Endereco/index")->with("enderecos", $enderecos)->with("message", $message);
         } catch (\Throwable $th) {
             return view("Endereco/index")->with("enderecos", [])->with("message", [$th->getMessage(), "danger"]);
@@ -52,8 +64,9 @@ class EnderecoController extends Controller
     public function store(Request $request)
     {
         try {
+            $logged = Auth::user();
             $endereco = new Endereco();
-            $endereco->Users_id = 1;
+            $endereco->Users_id = $logged->id;
             $endereco->bairro = $request->bairro;
             $endereco->logradouro = $request->logradouro;
             $endereco->numero = $request->numero;
