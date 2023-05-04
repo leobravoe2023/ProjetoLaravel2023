@@ -87,9 +87,14 @@ class EnderecoController extends Controller
     public function show($id)
     {
         try {
+            $logged = Auth::user(); // Pego o usuário que está logado
             $endereco = Endereco::find($id);
             if( isset($endereco) ){
-                return view("Endereco/show")->with("endereco", $endereco);
+                // Se o Users_id do Endereço for igual ao id do usuário logado, então é possível fazer a alteração
+                if($endereco->Users_id == $logged->id)
+                    return view("Endereco/show")->with("endereco", $endereco);
+                else
+                    return $this->indexMessage(["Endereco não pertence ao usuário", "warning"]);
             }
             return $this->indexMessage(["Endereco não encontrado", "warning"]);
         } catch (\Throwable $th) {
@@ -106,9 +111,15 @@ class EnderecoController extends Controller
     public function edit($id)
     {
         try {
-            $endereco = Endereco::find($id);
+            $logged = Auth::user(); // Pego o usuário que está logado
+            $endereco = Endereco::find($id); // Encontro o endereço informado pela rota
+            // Se o endereço existir
             if( isset($endereco) ) {
-                return view("Endereco/edit")->with("endereco", $endereco);
+                // Se o Users_id do Endereço for igual ao id do usuário logado, então é possível fazer a alteração
+                if($endereco->Users_id == $logged->id)
+                    return view("Endereco/edit")->with("endereco", $endereco);
+                else
+                    return $this->indexMessage(["Endereco não pertencente ao usuário", "warning"]);
             }
             else {
                 return $this->indexMessage(["Endereco não encontrado", "warning"]);
@@ -128,15 +139,20 @@ class EnderecoController extends Controller
     public function update(Request $request, $id)
     {
         try {
+            $logged = Auth::user();
             $endereco = Endereco::find($id);
             if( isset($endereco) ){
-                $endereco->Users_id = 1;
-                $endereco->bairro = $request->bairro;
-                $endereco->logradouro = $request->logradouro;
-                $endereco->numero = $request->numero;
-                $endereco->complemento = $request->complemento;
-                $endereco->update();
-                return $this->indexMessage(["Endereco atualizado com sucesso", "success"]);
+                if($endereco->Users_id == $logged->id){
+                    $endereco->bairro = $request->bairro;
+                    $endereco->logradouro = $request->logradouro;
+                    $endereco->numero = $request->numero;
+                    $endereco->complemento = $request->complemento;
+                    $endereco->update();
+                    return $this->indexMessage(["Endereco atualizado com sucesso", "success"]);
+                }
+                else{
+                    return $this->indexMessage(["Endereco não pertence ao usuário", "warning"]);
+                }
             }
             else{
                 return $this->indexMessage(["Endereco não encontrado", "warning"]);
@@ -155,12 +171,19 @@ class EnderecoController extends Controller
     public function destroy($id)
     {
         try {
+            $logged = Auth::user();
             $endereco = Endereco::find($id);
-            // se o produto existir
+            // se o endereço existir
             if( isset($endereco) ){
-                $endereco->delete();
-                // recarregar a view index
-                return $this->indexMessage(["Endereco removido com sucesso", "success"]);
+                if($endereco->Users_id == $logged->id){
+                    $endereco->delete();
+                    // recarregar a view index
+                    return $this->indexMessage(["Endereco removido com sucesso", "success"]);
+                }
+                else
+                {
+                    return $this->indexMessage(["Endereco não pertence ao usuário", "warning"]);
+                }
             }
             else {
                 return $this->indexMessage(["Endereco não encontrado", "warning"]);
