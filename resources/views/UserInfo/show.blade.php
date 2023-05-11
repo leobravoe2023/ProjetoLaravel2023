@@ -10,6 +10,12 @@
 </head>
 <body>
     <div class="container">
+        @if ( isset($message) )
+            <div class="alert alert-{{$message[1]}} alert-dismissible fade show" role="alert">
+                {{$message[0]}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>   
+        @endif
         <a href="{{route("userinfo.edit", $userInfo->Users_id)}}" class="btn btn-secondary">Editar</a>
         <a href="#" class="btn btn-danger" data-bs-target="#id-modal-destroy" data-bs-toggle="modal">Remover</a>
         <div class="mb-3">

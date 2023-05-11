@@ -10,6 +10,12 @@
 </head>
 <body>
     <div class="container">
+        @if ( isset($message) )
+            <div class="alert alert-{{$message[1]}} alert-dismissible fade show" role="alert">
+                {{$message[0]}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>   
+        @endif
         {{-- METHOD E ACTION especificam para onde os dados do formulário serão --}}
         {{-- encaminhados --}}
         {{-- {{route("userinfo.store")}} == /userinfo --}}
