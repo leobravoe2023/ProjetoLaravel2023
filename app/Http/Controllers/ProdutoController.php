@@ -10,6 +10,15 @@ use DB;
 class ProdutoController extends Controller
 {
     /**
+     * Método que roda ao criar a instancia do controlador que é utilizado pelo Laravel.
+     * Em outras palavras, esse método pode ser utilizado para configurar o controlador
+     * de forma inicial.
+     */
+    public function __construct(){
+        $this->middleware('auth:admin');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
