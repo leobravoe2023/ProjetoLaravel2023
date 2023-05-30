@@ -1,20 +1,37 @@
 // executa o JS depois de todo HTML ser carregado
 $(document).ready( function () {
-    // no JS
-    // const listaProduto = document.querySelector("#id-div-lista-produto");
-    // No Jquery
-    //const listaProduto = $("#id-div-lista-produto");
-    // console.log(listaProduto);
     
-    // Procurar um botão na página e adicionar um evento de click
+    const selectFiltroTipo = $("#id-select-filtro-tipo");
     
-    // Pelo JS
-    //document.querySelector("#id-button-busca").addEventListener("click", function(){
-    //    alert("botão clicado");
-    //});
-    
-    // Pelo JQuery
-    $("#id-button-busca").click( function(){
-        alert("botão clicado");
+    selectFiltroTipo.on("change", function (){
+        updateProdutos();
     });
+
+    function updateProdutos(){
+        // Pego o valor da propriedade VALUE do elemento selecionando
+        //  e coloco na váriavel tipoProdutoId
+        const tipoProdutoId = selectFiltroTipo.val();
+        console.log(tipoProdutoId);
+        $.ajax({
+            type: "GET",
+            url: `/pedido/usuario/getprodutos/${tipoProdutoId}`,
+            data: null,
+            dataType: "json",
+            success: function(response){
+                // Procuro onde quero imprimir as informações
+                divProduto = $("#id-div-lista-produto");
+                // Apago qualquer informação dentro do local selecionado
+                divProduto.html("");
+                // Imprimo os dados recebidos
+                response.return.forEach(produto => {
+                    divProduto.append(`<p>${produto.id} - ${produto.nome}</p>`);
+                });
+            },
+            error: function(error){
+                console.log("caiu no erro");
+                console.log(error);
+            }
+        });
+    }
+
 });

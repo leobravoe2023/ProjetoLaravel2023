@@ -71,3 +71,4 @@ Route::prefix('admin')->group(function () {
 // Rotas do PedidoUsuario
 Route::get("/pedido/usuario", "\App\Http\Controllers\PedidoUsuarioController@index")->name("pedidousuario.index");
 
+Route::get("/pedido/usuario/getprodutos/{id}", "\App\Http\Controllers\PedidoUsuarioController@getProdutos")->name("pedidousuario.getProdutos");
