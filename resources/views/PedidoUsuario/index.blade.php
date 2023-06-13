@@ -32,6 +32,17 @@
         </div>
         {{-- Parte inferior --}}
         <div class="my-4 border border-dark">
+            <div class="m-3">
+                <h4>Itens do pedido</h4>
+            </div>
+            <div class="m-3">
+                <table class="table text-center">
+                    <tbody id="id-tbody-itens-pedido"></tbody>
+                </table>
+            </div>
+            <div class="m-3">
+                <a href="#" class="btn btn-primary w-100">Próximo</a>
+            </div>
         </div>
     </div>
 @endsection
