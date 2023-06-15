@@ -1,5 +1,8 @@
 // executa o JS depois de todo HTML ser carregado
 $(document).ready(function () {
+    // Criando um vetor global para esse arquivo
+    // Esse vetor conterá os produtos adicionados no carrinho de compras
+    let vetorProdutosAdicionados = [];
 
     function groupBy(arr, property) {
         return arr.reduce(function (anterior, atual) {
@@ -51,26 +54,51 @@ $(document).ready(function () {
         const quantProdutoAdicionado = $(`#id-quant-produto-${idProdutoAdionado}`).val(); // 1
         const produto = produtos_group[idTipoProdutoAdicionado].find(obj => obj.id == idProdutoAdionado);
         console.log(produto);
+        // Verifico se a quantidade de produtos que estou tentando adicionar é positiva.
+        if(quantProdutoAdicionado > 0){
+            vetorProdutosAdicionados[idProdutoAdionado] = {
+                                                              id: produto.id,
+                                                              urlImage: produto.urlImage,
+                                                              descricao: produto.descricao,
+                                                              nome: produto.nome,
+                                                              quantProdutoAdicionado: quantProdutoAdicionado,
+                                                              preco: produto.preco,
+                                                              ingredientes: produto.ingredientes,
+                                                          };
+            console.log(vetorProdutosAdicionados);
+            // Apagar toda a tabela e utilizar o vetor "vetorProdutosAdicionados" para reimprimir as informações.
+            updateTabelaItensPedido(vetorProdutosAdicionados);
+            $(this).hide(20).show(20).hide(20).show(20);
+        }
+    }
+
+    function updateTabelaItensPedido(vetorProdutosAdicionados){
         // Seleciono o local onde irei manipular o HTML
         const tabela = $("#id-tbody-itens-pedido");
-        tabela.append(`
-            <tr>
-                <td>
-                    ${produto.id}
-                </td>
-                <td>
-                    ${produto.nome}
-                </td>
-                <td>
-                    ${quantProdutoAdicionado*produto.preco}
-                </td>
-                <td>
-                    <a class="btn btn-secondary">Editar</a>
-                    <a class="btn btn-danger">Remover</a>
-                </td>
-            </tr>
-        `);
-        $(this).hide(20).show(20).hide(20).show(20);
+        // Apago as informações dentro desse local
+        tabela.html("");
+        // Percorro o vetor e imprimo as informações na tela
+        vetorProdutosAdicionados.forEach(produto => {
+            tabela.append(`
+                            <tr>
+                                <td>
+                                    <span>${produto.descricao} ${produto.nome}</span>
+                                </td>
+                                <td>
+                                    <span>${produto.quantProdutoAdicionado}x</span>
+                                </td>
+                                <td>
+                                    <span>R$ ${produto.quantProdutoAdicionado*produto.preco}</span>
+                                </td>
+                                <td>
+                                    <a class="btn btn-secondary" 
+                                       data-bs-toggle="modal" 
+                                       data-bs-target="#id-edit-modal">Editar</a>
+                                    <a class="btn btn-danger">Remover</a>
+                                </td>
+                            </tr>
+                        `);
+        });
     }
 
     function showUpdatedProdutos(produtos_group) {

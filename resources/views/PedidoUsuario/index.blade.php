@@ -45,4 +45,35 @@
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="id-edit-modal" tabindex="-1" aria-labelledby="id-modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="id-modal-label">Editar Produto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-3">
+
+                        </div>
+                        <div class="col-md-6">
+
+                        </div>
+                        <div class="col-md-3">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <form id="id-form-modal-botao-remover" method="post" action="">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="btn btn-danger">Confirmar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
