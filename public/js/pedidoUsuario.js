@@ -46,11 +46,31 @@ $(document).ready(function () {
     }
 
     function addProdutoNoPedido() {
-        const idProdutoAdionado = this.getAttribute("value");
-        const idTipoProdutoAdicionado = this.getAttribute("value-tipo");
-        const quantProdutoAdicionado = $(`#id-quant-produto-${idProdutoAdionado}`).val();
+        const idProdutoAdionado = this.getAttribute("value"); //4
+        const idTipoProdutoAdicionado = this.getAttribute("value-tipo"); // 1
+        const quantProdutoAdicionado = $(`#id-quant-produto-${idProdutoAdionado}`).val(); // 1
         const produto = produtos_group[idTipoProdutoAdicionado].find(obj => obj.id == idProdutoAdionado);
         console.log(produto);
+        // Seleciono o local onde irei manipular o HTML
+        const tabela = $("#id-tbody-itens-pedido");
+        tabela.append(`
+            <tr>
+                <td>
+                    ${produto.id}
+                </td>
+                <td>
+                    ${produto.nome}
+                </td>
+                <td>
+                    ${quantProdutoAdicionado*produto.preco}
+                </td>
+                <td>
+                    <a class="btn btn-secondary">Editar</a>
+                    <a class="btn btn-danger">Remover</a>
+                </td>
+            </tr>
+        `);
+        $(this).hide(20).show(20).hide(20).show(20);
     }
 
     function showUpdatedProdutos(produtos_group) {
