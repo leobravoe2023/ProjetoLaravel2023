@@ -49,22 +49,22 @@ $(document).ready(function () {
     }
 
     function addProdutoNoPedido() {
-        const idProdutoAdionado = this.getAttribute("value"); //4
-        const idTipoProdutoAdicionado = this.getAttribute("value-tipo"); // 1
-        const quantProdutoAdicionado = $(`#id-quant-produto-${idProdutoAdionado}`).val(); // 1
+        const idProdutoAdionado = this.getAttribute("value");
+        const idTipoProdutoAdicionado = this.getAttribute("value-tipo");
+        const quantProdutoAdicionado = $(`#id-quant-produto-${idProdutoAdionado}`).val();
         const produto = produtos_group[idTipoProdutoAdicionado].find(obj => obj.id == idProdutoAdionado);
         console.log(produto);
         // Verifico se a quantidade de produtos que estou tentando adicionar é positiva.
-        if(quantProdutoAdicionado > 0){
+        if (quantProdutoAdicionado > 0) {
             vetorProdutosAdicionados[idProdutoAdionado] = {
-                                                              id: produto.id,
-                                                              urlImage: produto.urlImage,
-                                                              descricao: produto.descricao,
-                                                              nome: produto.nome,
-                                                              quantProdutoAdicionado: quantProdutoAdicionado,
-                                                              preco: produto.preco,
-                                                              ingredientes: produto.ingredientes,
-                                                          };
+                id: produto.id,
+                urlImage: produto.urlImage,
+                descricao: produto.descricao,
+                nome: produto.nome,
+                quantProdutoAdicionado: quantProdutoAdicionado,
+                preco: produto.preco,
+                ingredientes: produto.ingredientes,
+            };
             console.log(vetorProdutosAdicionados);
             // Apagar toda a tabela e utilizar o vetor "vetorProdutosAdicionados" para reimprimir as informações.
             updateTabelaItensPedido(vetorProdutosAdicionados);
@@ -72,7 +72,7 @@ $(document).ready(function () {
         }
     }
 
-    function updateTabelaItensPedido(vetorProdutosAdicionados){
+    function updateTabelaItensPedido(vetorProdutosAdicionados) {
         // Seleciono o local onde irei manipular o HTML
         const tabela = $("#id-tbody-itens-pedido");
         // Apago as informações dentro desse local
@@ -88,16 +88,21 @@ $(document).ready(function () {
                                     <span>${produto.quantProdutoAdicionado}x</span>
                                 </td>
                                 <td>
-                                    <span>R$ ${produto.quantProdutoAdicionado*produto.preco}</span>
+                                    <span>R$ ${produto.quantProdutoAdicionado * produto.preco}</span>
                                 </td>
                                 <td>
-                                    <a class="btn btn-secondary" 
+                                    <a class="btn btn-secondary btn-editar-tabela-produtos-adicionados" 
                                        data-bs-toggle="modal" 
                                        data-bs-target="#id-edit-modal">Editar</a>
                                     <a class="btn btn-danger">Remover</a>
                                 </td>
                             </tr>
                         `);
+        });
+        // Como estou realizando uma operação de busca em class, o resultado é um array
+        // O JQuery executa em cada elemento do array adicionando um evento de click
+        $(".btn-editar-tabela-produtos-adicionados").on("click", function () {
+            console.log("click");
         });
     }
 

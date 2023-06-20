@@ -54,24 +54,28 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
+                    <div class="row m-3 border border-dark">
                         <div class="col-md-3">
-
+                            <img id="id-modal-img-produto" src="" alt="">
                         </div>
-                        <div class="col-md-6">
-
+                        <div class="col-md-6 my-auto">
+                            <h5 id="id-modal-nome-produto">PRODUTO NOME</h5>
+                            <h6>Ingredientes</h6>
+                            <p id="id-modal-ingredientes-produto">asdasdasdasdasd asdasdasd asdasda sdasdasdasdas dasdasdas</p>
                         </div>
-                        <div class="col-md-3">
-                            
+                        <div class="col-md-3 my-auto">
+                            <div class="my-3">
+                                <label for="id-modal-preco-produto">Preço Unitário</label>
+                                <input id="id-modal-preco-produto" type="text" class="form-control">
+                            </div>
+                            <div class="my-3">
+                                <input id="id-modal-quant-produto" type="number" class="form-control">
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <form id="id-form-modal-botao-remover" method="post" action="">
-                        @csrf
-                        @method('delete')
-                        <button type="submit" class="btn btn-danger">Confirmar</button>
-                    </form>
+                    <a id="id-modal-btn-atualizar-produto" class="btn btn-secondary" data-bs-dismiss="modal">Atualizar</a>
                 </div>
             </div>
         </div>
