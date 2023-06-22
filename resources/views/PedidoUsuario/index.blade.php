@@ -47,7 +47,7 @@
     </div>
     <!-- Modal -->
     <div class="modal fade" id="id-edit-modal" tabindex="-1" aria-labelledby="id-modal-label" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="id-modal-label">Editar Produto</h5>
@@ -55,8 +55,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="row m-3 border border-dark">
-                        <div class="col-md-3">
-                            <img id="id-modal-img-produto" src="" alt="">
+                        <div class="col-md-3 my-auto">
+                            <img id="id-modal-img-produto" class="w-100" src="" alt="">
                         </div>
                         <div class="col-md-6 my-auto">
                             <h5 id="id-modal-nome-produto">PRODUTO NOME</h5>

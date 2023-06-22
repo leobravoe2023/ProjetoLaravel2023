@@ -79,30 +79,42 @@ $(document).ready(function () {
         tabela.html("");
         // Percorro o vetor e imprimo as informações na tela
         vetorProdutosAdicionados.forEach(produto => {
-            tabela.append(`
-                            <tr>
-                                <td>
-                                    <span>${produto.descricao} ${produto.nome}</span>
-                                </td>
-                                <td>
-                                    <span>${produto.quantProdutoAdicionado}x</span>
-                                </td>
-                                <td>
-                                    <span>R$ ${produto.quantProdutoAdicionado * produto.preco}</span>
-                                </td>
-                                <td>
-                                    <a class="btn btn-secondary btn-editar-tabela-produtos-adicionados" 
-                                       data-bs-toggle="modal" 
-                                       data-bs-target="#id-edit-modal">Editar</a>
-                                    <a class="btn btn-danger">Remover</a>
-                                </td>
-                            </tr>
-                        `);
+            if (produto) {
+                tabela.append(`
+                    <tr>
+                        <td>
+                            <span>${produto.descricao} ${produto.nome}</span>
+                        </td>
+                        <td>
+                            <span>${produto.quantProdutoAdicionado}x</span>
+                        </td>
+                        <td>
+                            <span>R$ ${produto.quantProdutoAdicionado * produto.preco}</span>
+                        </td>
+                        <td>
+                            <a value="${produto.id}" class="btn btn-secondary btn-editar-tabela-produtos-adicionados" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#id-edit-modal">Editar</a>
+                            <a value="${produto.id}" class="btn btn-danger btn-remover-tabela-produtos-adicionados">Remover</a>
+                        </td>
+                    </tr>
+                `);           
+            }
         });
-        // Como estou realizando uma operação de busca em class, o resultado é um array
-        // O JQuery executa em cada elemento do array adicionando um evento de click
         $(".btn-editar-tabela-produtos-adicionados").on("click", function () {
-            console.log("click");
+            //const idProduto = this.getAttribute("value");
+            const idProduto = $(this).attr("value");
+            console.log(vetorProdutosAdicionados[idProduto]);
+            $("#id-modal-img-produto").attr("src", vetorProdutosAdicionados[idProduto].urlImage);
+            $("#id-modal-nome-produto").html(vetorProdutosAdicionados[idProduto].nome);
+            $("#id-modal-ingredientes-produto").html(vetorProdutosAdicionados[idProduto].ingredientes);
+            $("#id-modal-preco-produto").attr("value", vetorProdutosAdicionados[idProduto].preco);
+            $("#id-modal-quant-produto").attr("value", vetorProdutosAdicionados[idProduto].quantProdutoAdicionado);
+        });
+        $(".btn-remover-tabela-produtos-adicionados").on("click", function () {
+            const idProduto = $(this).attr("value");
+            vetorProdutosAdicionados[idProduto] = null;
+            updateTabelaItensPedido(vetorProdutosAdicionados);
         });
     }
 

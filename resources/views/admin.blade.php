@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    <a class="btn btn-primary" href="#">Gerenciar Pedidos</a>
+                    <a class="btn btn-primary" href="{{route("pedidoadmin.index")}}">Gerenciar Pedidos</a>
                     <a class="btn btn-primary" href="{{route("produto.index")}}">Gerenciar Produtos</a>
                     <a class="btn btn-primary" href="{{route("tipoproduto.index")}}">Gerenciar Tipos de Produto</a>
                     <a class="btn btn-primary" href="{{url("/")}}">Voltar</a>
