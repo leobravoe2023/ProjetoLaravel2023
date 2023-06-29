@@ -75,3 +75,4 @@ Route::get("/pedido/usuario/getprodutos/{id}", "\App\Http\Controllers\PedidoUsua
 // Rotas do PedidoAdmin
 Route::get("/pedido/admin", "\App\Http\Controllers\PedidoAdminController@index")->name("pedidoadmin.index");
 Route::get("/pedido/admin/getpedidos", "\App\Http\Controllers\PedidoAdminController@getPedidos")->name("pedidoadmin.getPedidos");
+Route::get("/pedido/admin/gettipoprodutos", "\App\Http\Controllers\PedidoAdminController@getTipoProdutos")->name("pedidoadmin.getTipoProdutos");

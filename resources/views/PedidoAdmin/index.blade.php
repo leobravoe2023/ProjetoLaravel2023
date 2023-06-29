@@ -52,10 +52,7 @@
 
             {{-- Parte da direita --}}
             <div class="col-md-3">
-                <select name="" id="" class="form-select my-1">
-                    <option value="1">Pizza</option>
-                    <option value="2">Suco</option>
-                    <option value="3">Cerveja</option>
+                <select name="" id="id-select-tipo-produtos" class="form-select my-1">
                 </select>
                 <select name="" id="" class="form-select my-1">
                     <option value="1">Pepperoni</option>
