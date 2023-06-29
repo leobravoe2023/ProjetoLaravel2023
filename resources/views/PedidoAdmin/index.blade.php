@@ -14,11 +14,9 @@
                 </div>
             </div>
 
-
-
             {{-- Parte do meio --}}
             <div class="col-md-6">
-                <h2 class="text-center">Pedido 8</h2>
+                <h2 id="id-h2-pedido" class="text-center">Pedido 8</h2>
                 <div id="list-produtos" class="list-group my-3 overflow-auto">
                     <span class="list-group-item">
                         Pizza - Pepperoni - 1x
@@ -48,7 +46,6 @@
                     <span class="input-group-text">100,00</span>
                 </div>
             </div>
-
 
             {{-- Parte da direita --}}
             <div class="col-md-3">

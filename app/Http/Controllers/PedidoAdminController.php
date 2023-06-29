@@ -46,4 +46,24 @@ class PedidoAdminController extends Controller
         return response()->json($response, 200);
     }
 
+    /**
+     * Retorna a lista de todos os tipos de produto do banco de dados no formato JSON
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getPedidoProdutos($id){
+        // Lebrar de dar o use App\Models\Pedido;
+        $pedidoProdutos = DB::select("SELECT Tipo_Produtos.descricao,
+                                           Produtos.nome,
+                                           Pedido_Produtos.quantidade
+                                    FROM Pedido_Produtos
+                                    JOIN Produtos on Pedido_Produtos.Produtos_id = Produtos.id
+                                    JOIN Tipo_Produtos on Produtos.Tipo_Produtos_id = Tipo_Produtos.id
+                                    WHERE Pedidos_id = ?", [$id]);
+        $response["success"] = true;
+        $response["message"] = "Consulta de Produtos dentro de Pedido realizada com sucesso";
+        $response["return"] = $pedidoProdutos;
+        return response()->json($response, 200);
+    }
+
 }

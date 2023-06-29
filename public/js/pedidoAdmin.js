@@ -11,8 +11,7 @@ $(document).ready(function () {
                 printPedidos(response.return);
                 $(".class-list-pedido").on("click", function () {
                     const idPedido = this.getAttribute("value");
-                    console.log(idPedido);
-                    //updatePedidoProdutos(idPedido);
+                    updatePedidoProdutos(idPedido);
                 });
             },
             error: function (error) {
@@ -20,6 +19,34 @@ $(document).ready(function () {
             }
         });
     }
+    function updatePedidoProdutos(idPedido){
+        $.ajax({
+            type: "GET",
+            url: `/pedido/admin/getpedidoprodutos/${idPedido}`,
+            data: null,
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                $("#id-h2-pedido").html(`Pedido ${idPedido}`);
+                const listPedidos = $("#list-produtos");
+                listPedidos.html("");
+                response.return.forEach(pedidoProduto => {
+                    listPedidos.append(`<span class="list-group-item">
+                                            ${pedidoProduto.descricao} - ${pedidoProduto.nome} - ${pedidoProduto.quantidade}x
+                                            <div class="float-end">
+                                                <i class="fa-solid fa-pencil-square"></i>
+                                                <i class="fa-solid fa-trash"></i>
+                                            </div>
+                                        </span>`);
+                });
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
     function printPedidos(arrayPedidos) {
         const listPedidos = $("#list-pedidos");
         listPedidos.html("");
